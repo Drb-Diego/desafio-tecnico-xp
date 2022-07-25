@@ -6,6 +6,6 @@ const errorMiddleware = (
   response: Response,
   // eslint-disable-next-line no-unused-vars
   _next: NextFunction,
-) => response.status(500).send({ error: error.message });
+) => response.status(500).send({ message: error.message });
 
 export default errorMiddleware;
