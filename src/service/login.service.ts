@@ -19,6 +19,23 @@ const create = async ({ email, password }: ILogin) => {
   };
 };
 
+const login = async ({ email, password }: ILogin) => {
+  const allCustomers = await loginModel.getAll();
+
+  const [cutomerFinded] = allCustomers.filter((customer) => (
+    customer.email === email && bcrypt.compareSync(password, customer.password)
+  ));
+
+  if (!cutomerFinded) throw new Error('user not exists');
+
+  const token = jwt.encoded({ ...cutomerFinded });
+
+  return {
+    token,
+  };
+};
+
 export default {
   create,
+  login,
 };
